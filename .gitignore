@@ -3,6 +3,8 @@ out/
 .idea/
 sr/
 Files.iml
+NewFiles
+NewFolder
 !**/src/main/**/out/
 !**/src/test/**/out/
 

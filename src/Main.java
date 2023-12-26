@@ -4,10 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        NewFolder newFolder = new NewFolder();
-        NewFiles newFiles = new NewFiles();
         StringBuilder log = new StringBuilder();
         Logger logger = new Logger();
+        Logger newFiles = new Logger();
+        Logger newFolder = new Logger();
+
 
         File src = new File("c://Games/src");
         newFolder.createFolder(src, log);
