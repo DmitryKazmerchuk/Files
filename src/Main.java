@@ -9,44 +9,45 @@ public class Main {
     public static void main(String[] args) {
 
         StringBuilder log = new StringBuilder();
-        Logger logger = new Logger();
 
         List<String> directories = List.of("c://Games/src", "c://Games/res", "c://Games/savegames", "c://Games/temp",
                 "c://Games/src/main", "c://Games/src/test", "c://Games/res/drawables", "c://Games/res/vectors", "c://Games/res/icons");
-
         List<String> files = List.of("c://Games/src/main/Main.java", "c://Games/src/main/Utils.java", "c://Games/temp/temp.txt");
-        log.append("------------------------------------------------------------ \n");
 
-        for (String dir : directories) {
-            createFolder(new File(dir), log);
-        }
-
-        for (String file : files) {
-            File newFile = new File(file);
-            createFiles(newFile, log);
-            logger.loggerWrite(newFile, log);
-        }
+        createFolder(directories, log);
+        createFiles(files, log);
     }
 
     static SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-    public static void createFiles(File nameFiles, StringBuilder log) {
-        try {
-            if (nameFiles.createNewFile()) {
-                log.append(date.format(new Date()) + " создан файл " + nameFiles.getName() + "\n");
-            } else {
-                log.append(date.format(new Date()) + " ошибка создания файла!!! " + nameFiles.getName() + "\n");
+    public static void createFiles(List<String> files, StringBuilder log) {
+        Logger logger = new Logger();
+        for (String filesPath : files) {
+            File newFiles = new File(filesPath);
+
+            try {
+                if (newFiles.createNewFile()) {
+                    log.append(date.format(new Date()) + " создан файл " + newFiles.getName() + "\n");
+                } else {
+                    log.append(date.format(new Date()) + " ошибка создания файла!!! " + newFiles.getName() + "\n");
+                }
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
             }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            logger.loggerWrite(newFiles, log);
         }
     }
 
-    public static void createFolder(File nameFolder, StringBuilder log) {
-        if (nameFolder.mkdir()) {
-            log.append(date.format(new Date()) + " создан каталог " + nameFolder.getName() + "\n");
-        } else {
-            log.append(date.format(new Date()) + " ошибка создания каталога!!! " + nameFolder.getName() + "\n");
+    public static void createFolder(List<String> directories, StringBuilder log) {
+        log.append("------------------------------------------------------------ \n");
+        for (String dirPath : directories) {
+            File newDir = new File(dirPath);
+
+            if (newDir.mkdir()) {
+                log.append(date.format(new Date()) + " создан каталог " + newDir.getName() + "\n");
+            } else {
+                log.append(date.format(new Date()) + " ошибка создания каталога!!! " + newDir.getName() + "\n");
+            }
         }
     }
 }
